@@ -1,21 +1,25 @@
-// Last updated: 7/17/2026, 1:21:46 PM
+// Last updated: 7/17/2026, 1:23:09 PM
 1class Solution {
-2    public boolean isPerfectSquare(int num) {
-3        long left = 1, right = num;
+2    public List<String> readBinaryWatch(int turnedOn) {
+3        List<String> result = new ArrayList<>();
 4
-5        while (left <= right) {
-6            long mid = left + (right - left) / 2;
-7            long square = mid * mid;
-8
-9            if (square == num) {
-10                return true;
-11            } else if (square < num) {
-12                left = mid + 1;
-13            } else {
-14                right = mid - 1;
-15            }
-16        }
-17
-18        return false;
-19    }
-20}
+5        for (int hour = 0; hour < 12; hour++) {
+6            for (int minute = 0; minute < 60; minute++) {
+7                if (countBits(hour) + countBits(minute) == turnedOn) {
+8                    result.add(hour + ":" + String.format("%02d", minute));
+9                }
+10            }
+11        }
+12
+13        return result;
+14    }
+15
+16    private int countBits(int n) {
+17        int count = 0;
+18        while (n > 0) {
+19            count += n & 1;
+20            n >>= 1;
+21        }
+22        return count;
+23    }
+24}
