@@ -1,16 +1,28 @@
-// Last updated: 7/21/2026, 11:26:07 PM
+// Last updated: 7/21/2026, 11:26:43 PM
 1class Solution {
-2    public boolean isSubsequence(String s, String t) {
-3        int sp = 0;
-4        int tp = 0;
-5
-6        while (sp < s.length() && tp < t.length()) {
-7            if (s.charAt(sp) == t.charAt(tp)) {
-8                sp++;
-9            }
-10            tp++;
-11        }
-12
-13        return sp == s.length();        
-14    }
-15}
+2    public int longestPalindrome(String s) {
+3        HashMap<Character, Integer> charCount = new HashMap<>();
+4
+5        for (char c : s.toCharArray()) {
+6            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+7        }
+8
+9        int length = 0;
+10        boolean hasOdd = false;
+11
+12        for (int count : charCount.values()) {
+13            if (count % 2 == 0) {
+14                length += count;
+15            } else {
+16                length += count - 1;
+17                hasOdd = true;
+18            }
+19        }
+20
+21        if (hasOdd) {
+22            length += 1;
+23        }
+24
+25        return length;      
+26    }
+27}
