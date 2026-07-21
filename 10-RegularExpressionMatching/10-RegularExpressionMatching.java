@@ -1,36 +1,24 @@
-// Last updated: 7/21/2026, 11:23:07 PM
-1enum Result {
-2    TRUE, FALSE
-3}
-4
-5class Solution {
-6    Result[][] memo;
-7
-8    public boolean isMatch(String text, String pattern) {
-9        memo = new Result[text.length() + 1][pattern.length() + 1];
-10        return dp(0, 0, text, pattern);
-11    }
-12
-13    public boolean dp(int i, int j, String text, String pattern) {
-14        if (memo[i][j] != null) {
-15            return memo[i][j] == Result.TRUE;
-16        }
-17        boolean ans;
-18        if (j == pattern.length()){
-19            ans = i == text.length();
-20        } else{
-21            boolean first_match = (i < text.length() &&
-22                                   (pattern.charAt(j) == text.charAt(i) ||
-23                                    pattern.charAt(j) == '.'));
-24
-25            if (j + 1 < pattern.length() && pattern.charAt(j+1) == '*'){
-26                ans = (dp(i, j+2, text, pattern) ||
-27                       first_match && dp(i+1, j, text, pattern));
-28            } else {
-29                ans = first_match && dp(i+1, j+1, text, pattern);
-30            }
-31        }
-32        memo[i][j] = ans ? Result.TRUE : Result.FALSE;
-33        return ans;
-34    }
-35}
+// Last updated: 7/21/2026, 11:23:57 PM
+1public class Solution {
+2    public String multiply(String num1, String num2) {
+3        int n1 = num1.length(), n2 = num2.length();
+4        int[] products = new int[n1 + n2];
+5        for (int i = n1 - 1; i >= 0; i--) {
+6            for (int j = n2 - 1; j >= 0; j--) {
+7                int d1 = num1.charAt(i) - '0';
+8                int d2 = num2.charAt(j) - '0';
+9                products[i + j + 1] += d1 * d2;
+10            }
+11        }
+12        int carry = 0;
+13        for (int i = products.length - 1; i >= 0; i--) {
+14            int tmp = (products[i] + carry) % 10;
+15            carry = (products[i] + carry) / 10;
+16            products[i] = tmp;
+17        }
+18        StringBuilder sb = new StringBuilder();
+19        for (int num : products) sb.append(num);
+20        while (sb.length() != 0 && sb.charAt(0) == '0') sb.deleteCharAt(0);
+21        return sb.length() == 0 ? "0" : sb.toString();
+22    }
+23}
