@@ -1,28 +1,29 @@
-// Last updated: 7/21/2026, 11:26:43 PM
+// Last updated: 7/21/2026, 11:27:17 PM
 1class Solution {
-2    public int longestPalindrome(String s) {
-3        HashMap<Character, Integer> charCount = new HashMap<>();
-4
-5        for (char c : s.toCharArray()) {
-6            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
-7        }
-8
-9        int length = 0;
-10        boolean hasOdd = false;
-11
-12        for (int count : charCount.values()) {
-13            if (count % 2 == 0) {
-14                length += count;
-15            } else {
-16                length += count - 1;
-17                hasOdd = true;
-18            }
-19        }
-20
-21        if (hasOdd) {
-22            length += 1;
-23        }
-24
-25        return length;      
-26    }
-27}
+2    public int thirdMax(int[] nums) {
+3        long max = Long.MIN_VALUE;
+4        long secondMax = Long.MIN_VALUE;
+5        long thirdMax = Long.MIN_VALUE;
+6
+7        for (int num : nums) {
+8            long val = num;
+9
+10            if (val == max || val == secondMax || val == thirdMax) {
+11                continue;
+12            }
+13
+14            if (val > max) {
+15                thirdMax = secondMax;
+16                secondMax = max;
+17                max = val;
+18            } else if (val > secondMax) {
+19                thirdMax = secondMax;
+20                secondMax = val;
+21            } else if (val > thirdMax) {
+22                thirdMax = val;
+23            }
+24        }
+25
+26        return thirdMax == Long.MIN_VALUE ? (int) max : (int) thirdMax;
+27    }
+28}
