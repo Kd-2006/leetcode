@@ -1,15 +1,22 @@
-// Last updated: 7/22/2026, 10:02:57 PM
+// Last updated: 7/22/2026, 10:04:02 PM
 1class Solution {
-2    public int findPoisonedDuration(int[] timeSeries, int duration) {
-3        int total = 0;
-4        for (int i = 0; i < timeSeries.length-1; i++) {
-5            if (timeSeries[i+1] <= timeSeries[i] + duration-1) {
-6                total += timeSeries[i+1] - timeSeries[i];
-7            } else { 
-8                total += duration;
-9            }
-10        }
-11        total += duration; 
-12        return total;
-13    }
-14}
+2    public String[] findWords(String[] words) {
+3       ArrayList<String> ans=new ArrayList<>();
+4       String first = "qwertyuiop";
+5       String Secound ="asdfghjkl";
+6       String Third="zxcvbnm";
+7       for(String i : words){
+8        if(isinrow(i,first) || isinrow(i,Secound) || isinrow(i,Third))
+9         ans.add(i);
+10       } 
+11       return ans.toArray(new String[0]);
+12    }
+13    private boolean isinrow(String s,String row){
+14      for(char c:s.toCharArray()){
+15        if(row.indexOf(Character.toLowerCase(c))==-1){
+16            return false;
+17        }
+18      }
+19      return true;
+20    }
+21}
