@@ -1,18 +1,14 @@
-// Last updated: 7/22/2026, 9:59:40 PM
+// Last updated: 7/22/2026, 10:00:50 PM
 1class Solution {
-2    public List<Integer> findDisappearedNumbers(int[] nums) {
-3        Set<Integer> numSet = new HashSet<>();
-4        for (int num : nums) {
-5            numSet.add(num);
-6        }
-7        
-8        List<Integer> result = new ArrayList<>();
-9        for (int i = 1; i <= nums.length; i++) {
-10            if (!numSet.contains(i)) {
-11                result.add(i);
-12            }
-13        }
-14        
-15        return result;        
-16    }
-17}
+2    public int[] constructRectangle(int area) {
+3         int[] ans = new int[2];
+4        for (int i = (int)(Math.sqrt(area)); i >= 1 ; i--) {
+5            if (area % i == 0) {
+6                ans[1] = i;
+7                ans[0] = area / i;
+8                break;
+9            }
+10        }
+11        return ans;
+12    }
+13}
