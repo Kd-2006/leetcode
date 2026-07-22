@@ -1,14 +1,15 @@
-// Last updated: 7/22/2026, 10:00:50 PM
+// Last updated: 7/22/2026, 10:02:57 PM
 1class Solution {
-2    public int[] constructRectangle(int area) {
-3         int[] ans = new int[2];
-4        for (int i = (int)(Math.sqrt(area)); i >= 1 ; i--) {
-5            if (area % i == 0) {
-6                ans[1] = i;
-7                ans[0] = area / i;
-8                break;
+2    public int findPoisonedDuration(int[] timeSeries, int duration) {
+3        int total = 0;
+4        for (int i = 0; i < timeSeries.length-1; i++) {
+5            if (timeSeries[i+1] <= timeSeries[i] + duration-1) {
+6                total += timeSeries[i+1] - timeSeries[i];
+7            } else { 
+8                total += duration;
 9            }
 10        }
-11        return ans;
-12    }
-13}
+11        total += duration; 
+12        return total;
+13    }
+14}
