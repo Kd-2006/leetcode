@@ -1,27 +1,24 @@
-// Last updated: 7/23/2026, 8:35:28 PM
-1class Solution {
-2    public int[][] insert(int[][] intervals, int[] newInterval) {
-3        List<int[]> res = new ArrayList<>();
-4        int n = intervals.length;
-5        int i = 0;
-6
-7        int newStart = newInterval[0];
-8        int newEnd = newInterval[1];
-9        while (i < n && intervals[i][1] < newStart) {
-10            res.add(intervals[i]);
-11            i++;
-12        }
-13        while (i < n && intervals[i][0] <= newEnd) {
-14            newStart = Math.min(newStart, intervals[i][0]);
-15            newEnd = Math.max(newEnd, intervals[i][1]);
-16            i++;
-17        }
-18        res.add(new int[]{newStart, newEnd});
-19        while (i < n) {
-20            res.add(intervals[i]);
-21            i++;
-22        }
-23
-24        return res.toArray(new int[res.size()][]);
-25    }
-26}
+// Last updated: 7/23/2026, 8:36:22 PM
+1class Solution{
+2    public ListNode rotateRight(ListNode head,int k){
+3        if(head==null||head.next==null||k==0) return head; 
+4
+5        int len=1;
+6        ListNode tail=head;
+7        while(tail.next!=null){ tail=tail.next; len++; } 
+8
+9        k%=len;
+10        if(k==0) return head; 
+11
+12        tail.next=head; 
+13
+14        int steps=len-k;
+15        ListNode newtail=head;
+16        for(int i=1;i<steps;i++) newtail=newtail.next; 
+17
+18        ListNode newhead=newtail.next;
+19        newtail.next=null;
+20
+21        return newhead;
+22    }
+23}
