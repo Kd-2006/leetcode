@@ -1,24 +1,27 @@
-// Last updated: 7/23/2026, 8:36:22 PM
-1class Solution{
-2    public ListNode rotateRight(ListNode head,int k){
-3        if(head==null||head.next==null||k==0) return head; 
-4
-5        int len=1;
-6        ListNode tail=head;
-7        while(tail.next!=null){ tail=tail.next; len++; } 
-8
-9        k%=len;
-10        if(k==0) return head; 
+// Last updated: 7/23/2026, 8:37:24 PM
+1class Solution {
+2    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+3        if (obstacleGrid == null || obstacleGrid[0][0] == 1) {
+4            return 0;
+5        }
+6
+7        int rows = obstacleGrid.length;
+8        int cols = obstacleGrid[0].length;
+9        int[] dp = new int[cols];
+10        dp[0] = 1;
 11
-12        tail.next=head; 
-13
-14        int steps=len-k;
-15        ListNode newtail=head;
-16        for(int i=1;i<steps;i++) newtail=newtail.next; 
-17
-18        ListNode newhead=newtail.next;
-19        newtail.next=null;
-20
-21        return newhead;
-22    }
-23}
+12        for (int r = 0; r < rows; r++) {
+13            for (int c = 0; c < cols; c++) {
+14                if (obstacleGrid[r][c] == 1) {
+15                    dp[c] = 0;
+16                } else {
+17                    if (c > 0) {
+18                        dp[c] += dp[c - 1];
+19                    }
+20                }
+21            }
+22        }
+23
+24        return dp[cols - 1];        
+25    }
+26}
